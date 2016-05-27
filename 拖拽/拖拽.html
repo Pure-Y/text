@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		#div1{
+			width: 200px;
+			height: 200px;
+			background: red;
+			position: absolute;
+		}
+	</style>
+</head>
+<body>
+	你说行就行你说行就行你说行就行你说行就行你说行就行你说行就行
+	<div id="div1"></div>
+	<script src="jquery-1.9.1.min.js"></script>
+	<script>
+		$(function(){
+			var $div1=$('#div1')
+			$div1.on('mousedown',function(e){
+				var offset = $div1.offset()
+				var iDisX=e.pageX-offset.left;
+				var iDisY=e.pageY-offset.top;
+				$(document).on('mousemove',function(e){
+					var iLeft=e.pageX - iDisX;
+					var iTop=e.pageY - iDisY;
+					$div1.offset ({
+						left:iLeft,
+						top:iTop
+					});
+					return false;
+				})
+				$(document).on('mouseup',function(){
+					$(document).off('mousemove')
+				})
+			});
+			// var $div1 = $('#div1')
+			// $div1.on('mousedown',function(e){
+			// 	var offset = $div1.offset()
+			// 	var iDisX = e.pageX - offset.left;
+			// 	var iDisY = e.pageY - offset.top;
+			// 	$(document).on('mousemove',function(e){
+			// 		var iLeft = e.pageX - iDisX;
+			// 		var iTop = e.pageY - iDisY;
+			// 		$div1.offset({
+			// 			left:iLeft,
+			// 			top:iTop
+			// 		})
+			// 		return false;
+			// 	});
+			// 	$(document).on('mouseup',function(){
+			// 		$(document).off('mousemove')
+			// 	});
+			// });
+		});
+	</script>
+</body>
+</html>
