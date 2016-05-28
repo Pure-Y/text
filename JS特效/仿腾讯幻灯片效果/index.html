@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		img{
+			border: 0;
+		}
+		#container{
+			width: 680px;
+			height: 344px;
+			background: #ccc;
+			margin: 50px auto;
+			position: relative;
+		}
+		#imgs img{
+			display: none;
+		}
+		#imgs .selected{
+			display: block;
+		}
+		#img-intro{
+			width: 100%;
+			height: 80px;
+			background: #000;
+			position: absolute;
+			left: 0;
+			bottom: 0;
+			color: #fff;
+			line-height: 80px;
+			text-indent: 10px;
+			opacity: 0.5;
+			filter:alpha(opacity=50);
+		}
+		#arrows{
+			/*position: absolute;
+			right: 10px;
+			bottom: 10px;*/
+			color: #afafaf;
+			/*z-index: 1;*/
+			float: right;
+			margin-right: 10px;
+			text-align: center;
+			text-indent: 0;
+		}
+		#arrows .btn{
+			width: 6px;
+			height: 9px;
+			background: url(img/btn.png) no-repeat;
+			margin-top: 35px;
+			cursor: pointer;
+		}
+		#arrows > span{
+			float: left;
+		}
+		#prev.btn{
+			/*float: left;*/
+			background-position: 0 0;
+		}
+		#prev.btn:hover{
+			background-position: -12px 0;
+		}
+		#next.btn{
+			/*float: right;*/
+			background-position: -6px 0;
+		}
+		#next.btn:hover{
+			/*float: right;*/
+			background-position: -18px 0;
+		}
+		#img-text{
+			float: left;
+		}
+	</style>
+</head>
+<body>
+	<div id="container">
+		<div id="imgs">
+			<img class="selected" src="img/1.jpg" alt="" title="111">
+			<img src="img/2.jpg" alt="" title="222">
+			<img src="img/3.jpg" alt="" title="333">
+			<img src="img/4.jpg" alt="" title="444">
+		</div>
+		<div id="img-intro">
+			<span id="img-text"></span>
+			<div id="arrows">
+				<span id="prev" class="btn"></span>
+				<span>
+					<span id="img-index">1</span>
+					/
+					<span id="img-length"></span>
+				</span>
+				<span id="next" class="btn"></span>
+			</div>
+		</div>
+	</div>
+
+	<script>
+
+		var aImg = document.getElementById('imgs').getElementsByTagName('img');
+
+		var oPrev = document.getElementById('prev');
+		var oNext = document.getElementById('next');
+		var oImgIndex = document.getElementById('img-index');
+		var oImgLength = document.getElementById('img-length');
+		var oImgText = document.getElementById('img-text');
+
+		var index = 0;//代表当前图片的索引
+
+		oImgLength.innerHTML = aImg.length;
+		oImgText.innerHTML = aImg[0].title;
+
+		function changeImg(idx){
+			for(var i=0; i<aImg.length; i++){
+				aImg[i].className = '';
+			}
+			aImg[idx].className = 'selected';
+			oImgIndex.innerHTML = idx + 1;
+
+			oImgText.innerHTML = aImg[idx].title;
+		}
+
+		oPrev.onclick = oNext.onclick = function(){
+			if(this == oPrev){
+				
+			}else{
+				index++;
+				if(index == aImg.length){
+					index = 0;
+				}
+				changeImg(index);
+			}
+		};
+
+	</script>
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+	*{
+		margin:0;
+		padding: 0;
+	}
+	ul{
+		list-style: none;
+	}
+		#container{
+			width: 680px;
+			height: 344px;
+			background: #ccc;
+			margin: 50px auto;
+			position: relative;
+		}
+		#tab{
+			height: 20px;
+			position: absolute;
+			right: 10px;
+			bottom: 10px;
+		}
+		#tab li{
+			width: 20px;
+			height: 20px;
+			text-align: center;
+			line-height: 20px;
+			float: left;
+			background: #000;
+			color: #fff;
+			margin: 5px;
+			cursor: pointer;
+		}
+		#tab .selected{
+			background: orange;
+		}
+		#imgs img{
+			display: none;
+		}
+		#imgs .selected{
+			display: block;
+		}
+		#arrow{
+			position: absolute;
+			left: 10px;
+			bottom: 10px;
+		}
+		#arrow span{
+			float: left;
+			background: #000;
+			color: #fff;
+			height: 20px;
+			width: 20px;
+			text-align: center;
+			line-height: 20px;
+			margin-right: 5px;
+			cursor: pointer;
+		}
+	</style>
+</head>
+<body>
+	<div id="container">
+		<ul id="tab">
+			<li class="selected">1</li>
+			<li>2</li>
+			<li>3</li>
+			<li>4</li>
+		</ul>
+		<div id="imgs">
+			<img class="selected" src="img/1.jpg" alt="">
+			<img src="img/2.jpg" alt="">
+			<img src="img/3.jpg" alt="">
+			<img src="img/4.jpg" alt="">
+		</div>
+		<div id="arrow">
+			<span id="prev">&lt;</span>
+			<span id="next">&gt;</span>
+		</div>
+	</div>
+
+	<script>
+		var oContainer = document.getElementById("container");
+		var oTab = document.getElementById("tab");
+		var aLi = oTab.getElementsByTagName("li");
+		var oImgs = document.getElementById("imgs");
+		var aImg = oImgs.getElementsByTagName("img");
+		var index = 0;//当前索引
+		for(var i=0; i<aLi.length; i++){
+			aLi[i].index = i;
+			aLi[i].onmouseover = function(){
+				index=this.index
+				changeimg(this.index);
+			}
+		};
+
+		function changeimg(index){
+			for(var i=0; i<aLi.length; i++){
+					aLi[i].className = "";
+					aImg[i].className= "";
+				}
+				//index.className = "selected";
+				aLi[index].className = "selected";
+				aImg[index].className = "selected";
+		};
+
+		var oPrev = document.getElementById("prev");
+		var oNext = document.getElementById("next");
+		oPrev.onclick = function(){
+			index--;
+			if(index == -1){
+				index = aLi.length - 1;
+			};
+			changeimg(index);
+		};
+		oNext.onclick = function(){
+			index++;
+			if(index == aLi.length){
+				index = 0;
+			};
+			changeimg(index);
+		};
+		var timer;
+		function play(){
+			timer = setInterval(function(){
+			oNext.onclick();
+			},1000);
+		};
+		play();
+		oContainer.onmouseover = function(){
+			clearInterval(timer);
+		};
+		oContainer.onmouseout = function(){
+			play();
+		};
+
+	</script>
+</body>
+</html>

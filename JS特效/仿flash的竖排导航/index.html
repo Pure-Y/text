@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		ul{
+			list-style: none;
+		}
+		#container{
+			margin-top: 20px;
+			margin-left: 20px;
+		}
+		#menu{
+			position: relative;
+		}
+		#menu li{
+			width: 134px;
+			height: 25px;
+			line-height: 25px;
+			margin-top: 5px;
+			padding: 0 6px;
+			background: url(bg.gif) ;
+			border: 1px solid #d6d6d6;
+			cursor: pointer;
+			position: relative;
+		}
+		#menu li a{
+			color: #000;
+			text-decoration: none;
+
+		}
+		#menu span{
+			position: absolute;
+			right: 6px;
+			top: 6px;
+			/*float: right;
+			margin-top: 8px;*/
+			width: 9px;
+			height: 8px;
+			background: url(ico.gif) no-repeat;
+		}
+	</style>
+</head>
+<body>
+	<div id="container">
+		<ul id="menu">
+			<li class="selected"><a href="#">首页<span></span></a></li>
+			<li><a href="#">精品课程<span></span></a></li>
+			<li><a href="#">CSS相关知识<span></span></a></li>
+			<li><a href="#">关于我们<span></span></a></li>
+			<li><a href="#">联系我们<span></span></a></li>
+		</ul>
+	</div>
+
+
+
+	<script src="mylib.js"></script>
+	<script>
+		var oMenu = document.getElementById('menu');
+		var aLi = oMenu.getElementsByTagName('li');
+ 		var index;
+		for(var i =0;i<aLi.length;i++){
+			aLi[i].index = i;
+			aLi[i].onmouseover = function(){
+				for(var i =0;i<aLi.length;i++){
+					aLi[i].className = "";
+				}
+				aLi[this.index].style.fontWeight = "bold";
+				aLi[this.index].className = "selected";
+				startMove(this,{
+					paddingLeft:30,
+					paddingRight:30
+				});
+			};
+			aLi[i].onmouseout = function(){
+				startMove(this,{
+					paddingLeft:6,
+					paddingRight:6
+				});
+				aLi[this.index].style.fontWeight = "normal";
+			};
+
+		};
+	</script>
+</body>
+</html>

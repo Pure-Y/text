@@ -1,0 +1,68 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>带动画的轮播图</title>
+	<style>
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		ul{
+			list-style: none;
+		}
+		#container{
+			width: 640px;
+			height: 240px;
+			margin: 50px auto;
+			position: relative;
+			overflow: hidden;
+		}
+		#tab{
+			position: absolute;
+			right: 20px;
+			bottom: 20px;
+		}
+		#tab li{
+			width: 10px;
+			height: 10px;
+			background: pink;
+			float: left;
+			margin-right: 10px;
+			cursor: pointer;
+		}
+		#tab .selected{
+			background: #fff;
+		}
+		#imgs img{
+			float: left;
+		}
+	</style>
+</head>
+<body>
+	<div id="container">
+		<ul id="tab">
+			<li class="selected"></li>
+			<li></li>
+			<li></li>
+			<li></li>
+		</ul>
+		<div id="imgs">
+			<img src="img/1.jpg" alt="">
+			<img src="img/2.jpg" alt="">
+			<img src="img/3.jpg" alt="">
+			<img src="img/4.jpg" alt="">
+			<img src="img/5.jpg" alt="">
+		</div>
+	</div>
+	<script src="js/mylib.js"></script>
+	<script>
+		var oImgs = document.getElementById('imgs');
+		var aImg = oImgs.getElementsByTagName('img');
+		oImgs.appendChild(aImg[0].cloneNode());//克隆
+
+		oImgs.style.width = aImg.length * aImg[0].offsetWidth + 'px';
+	</script>
+</body>
+</html>

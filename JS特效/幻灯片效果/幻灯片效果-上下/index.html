@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		ul{
+			list-style: none;
+		}
+		#container{
+			width: 470px;
+			height: 150px;
+			margin: 50px auto;
+			overflow: hidden;
+			position: relative;
+		}
+		#tab{
+			width: 124px;
+			height: 22px;
+			position: absolute;
+			right: 10px;
+			bottom: 10px;
+			z-index: 1;
+		}
+		#tab li{
+			/*width: 20px;
+			height: 20px;
+			line-height: 20px;
+			text-align: center;*/
+			padding: 2px 6px;
+			font-size: 12px;
+			background: #fcf2cf;
+			color: #ffb442;
+			border: 1px solid #f47500;
+			margin-right: 2px;
+			float: left;
+			cursor: pointer;
+		}
+		#tab .selected{
+			/*width: 22px;
+			height: 22px;*/
+			padding: 3px 8px;
+			position: relative;
+			bottom: 2px;
+			background: #ffb442;
+			color: #fff;
+			font-weight: bold;
+		}
+		#imgs{
+			position: absolute;
+		}
+		#imgs img{
+			float: left;
+		}
+	</style>
+</head>
+<body>
+	<div id="container">
+		<ul id="tab">
+			<li class="selected">1</li>
+			<li>2</li>
+			<li>3</li>
+			<li>4</li>
+			<li>5</li>
+		</ul>
+		<div id="imgs">
+			<img src="img/1.jpg" alt="">
+			<img src="img/2.jpg" alt="">
+			<img src="img/3.jpg" alt="">
+			<img src="img/4.jpg" alt="">
+			<img src="img/5.jpg" alt="">
+		</div>
+	</div>
+
+
+	<script src="mylib.js"></script>
+	<script>
+		var oContainer = document.getElementById('container');
+		var oTab = document.getElementById('tab');
+		var aLi = oTab.getElementsByTagName('li');
+		var oImgs = document.getElementById('imgs');
+		var aImg = document.getElementsByTagName('img');
+		var index = 0;
+		oImgs.appendChild(aImg[0].cloneNode());//克隆
+		oImgs.style.height = aImg.length * aImg[0].offsetHeight + 'px';
+		for(var i = 0;i<aLi.length;i++){
+			aLi[i].index = i;
+			aLi[i].onmouseover = function(){
+				index = this.index
+				changeimg(index);
+			};
+		};
+		function changeimg(idx){
+			for(var i = 0;i<aLi.length;i++){
+					aLi[i].className = "";
+				}
+				aLi[idx==aLi.length?0:idx].className = "selected";
+				startMove(oImgs,{
+					top:-idx*aImg[0].offsetHeight
+				});
+		};
+		var timer
+		function play(){
+			timer = setInterval(function(){
+				index++;
+				if(oImgs.offsetTop <= -(aImg.length-1)*aImg[0].offsetHeight){
+					oImgs.style.top = 0;
+					index = 1;
+				}
+				changeimg(index);
+			},1000);
+		};
+		play();
+		oContainer.onmouseover = function(){
+			clearInterval(timer);
+		};
+		oContainer.onmouseout = function(){
+			play();
+		};
+
+
+
+
+
+
+
+
+
+
+	</script>
+</body>
+</html>
